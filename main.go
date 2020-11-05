@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"github.com/gorilla/mux"
 )
 
 type User struct {
@@ -25,20 +26,22 @@ func allDetail(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// func testPostallDetail(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Fprint(w, "Hello Tamilarasan")
+func testPostallDetail(w http.ResponseWriter, r *http.Request) {
+ 	fmt.Fprint(w, "Hello Tamilarasan")
 
-// }
+ }
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello frindes")
 }
 
 func handleRequest() {
 
-	http.HandleFunc("/", HomePage)
-	http.HandleFunc("/tamil", allDetail)
-	//myRouter.HandleFunc("/tamil", testPostallDetail)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	myRouter := mux.NewRouter().StrictSlash(true)
+
+	myRouter.HandleFunc("/", HomePage)
+	myRouter.HandleFunc("/tamil", allDetail).Methods("GET")
+	myRouter.HandleFunc("/tamil", testPostallDetail).Methods("POST")
+	log.Fatal(http.ListenAndServe(":8080", myRouter))
 
 }
 

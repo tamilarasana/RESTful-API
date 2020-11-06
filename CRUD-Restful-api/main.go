@@ -122,6 +122,14 @@ func main(){
 		Desc: "A jug  of millk",
 		Price: 5.99,
 	})
+
+	inventory =append(inventory,Item{
+		UID: "2",
+		Name: "milk",
+		Desc: "A jug  of millk",
+		Price: 5.99,
+	})
+	
 	
 
 
